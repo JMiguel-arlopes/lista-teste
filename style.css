@@ -1,4 +1,5 @@
 @import url(reset.css);
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Shojumaru&display=swap');
 
 * {
     padding: 0;
@@ -10,6 +11,7 @@ body {
     font-size: 14px;
     font-weight: lighter;
     background-color: rgb(255, 255, 170);
+    font-family: 'Poppins', sans-serif;
 }
 
 header {
@@ -44,7 +46,6 @@ label {
 }
 
 .container-tarefas {
-
     background-color: blanchedalmond;
     min-width: 50vw;
     padding: 1rem;
@@ -53,11 +54,48 @@ label {
     text-align: center;
 }
 
+.title {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border-bottom: 1px solid black;
+    padding-bottom: .5rem;
+    margin-bottom: .5rem;
+}
+
 .lista-tarefas {}
 
 .item-tarefa {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 5px 10px;
     border: solid 1px black;
     border-radius: 5px;
     margin: 1rem 0;
+}
+
+strong {
+    font-weight: 600;
+    padding-right: 5px;
+    border-right: 1px solid black;
+}
+
+span {
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+button {
+    font-weight: 700;
+    border-radius: 50%;
+    border: 2px solid black;
+    background-color: palegoldenrod;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: 0;
+    height: 2em;
+    width: 2em;
+    cursor: pointer;
 }

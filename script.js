@@ -1,6 +1,7 @@
 const form = document.getElementById('formulario');
 let itens = JSON.parse(localStorage.getItem("itens")) || []
 
+
 itens.forEach(item => criarElemento(item))
 
 form.addEventListener("submit", (evento) => {
@@ -15,34 +16,45 @@ form.addEventListener("submit", (evento) => {
 
     if (existe) {
         itemAtual.id = existe.id
+        itens[itens.findIndex(el => el.id === existe.id)] = itemAtual
     } else {
-        itemAtual.id = itens.length
+        itemAtual.id = itens[itens.length - 1] ? itens[itens.length - 1].id + 1 : 0
         criarElemento(itemAtual)
         itens.push(itemAtual)
     }
 
     localStorage.setItem("itens", JSON.stringify(itens))
+
+    evento.target.elements.tarefa.value = ""
 })
+
 
 function criarElemento(nameTarefa) {
     const newItem = document.createElement('li')
     newItem.classList.add('item-tarefa')
-
-    newItem.innerHTML = nameTarefa.name;
     newItem.dataset.id = nameTarefa.id;
 
-    newItem.appendChild(botaoDeleta());
+    const numeracao = document.createElement('strong')
+    nameTarefa.id < 10 ? numeracao.innerHTML = "0" + (nameTarefa.id + 1) : numeracao.innerHTML = nameTarefa.id + 1
+
+
+    const text = document.createElement('span')
+    text.innerHTML = nameTarefa.name;
+
+    const btn = document.createElement("button")
+    btn.innerHTML = "X"
+    btn.addEventListener('click', (el) => {
+        el.target.parentNode.remove()
+
+        itens.splice(itens.findIndex(elemento => elemento.id == nameTarefa.id), 1)
+        localStorage.setItem("itens", JSON.stringify(itens))
+    })
+
+
+    newItem.appendChild(numeracao)
+    newItem.appendChild(text)
+    newItem.appendChild(btn)
 
     const lista = document.querySelector('.lista-tarefas')
     lista.appendChild(newItem)
 }
-
-function botaoDeleta() {
-    const btn = document.createElement('button')
-    btn.innerHTML = 'X'
-
-
-    btn.addEventListener('click', () => {
-        console.log(this)
-    })
-} 
