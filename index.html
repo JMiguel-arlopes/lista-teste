@@ -1,39 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Tarefas - JM</title>
-
     <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+    <script defer src="input.js"></script>
+    <script defer src="https://kit.fontawesome.com/bd92ca8629.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
     <header>
-        <h1>Minha lista de Tarefas</h1>
-        <!-- (HORARIO) -->
-        <h2>Dia de Hoje terá</h2>
+        <h1 class="main-title-header">Lista de Tarefas</h1>
     </header>
-
     <main>
         <section class="container">
-            <form id="formulario">
-                <label for="tarefa">Adicionar tarefa:</label>
-                <input type="text" name="tarefa" id="input">
-            </form>
-
             <div class="container-tarefas">
                 <h2 class="title">Suas Tarefas:</h2>
                 <ul class="lista-tarefas">
                 </ul>
+                <div class="add-item-container">
+                    <button class="btn-add-item">+</button>
+                    <form id="formulario">
+                        <input type="text" name="tarefa" id="input" class="input-add-item"
+                            placeholder="insira nova tarefa...">
+                    </form>
+                </div>
             </div>
         </section>
     </main>
 
     <footer>Desenvolvido por JM</footer>
-
-    <script src="script.js"></script>
 </body>
 
 </html>

@@ -42,8 +42,9 @@ function criarElemento(nameTarefa) {
     text.innerHTML = nameTarefa.name;
 
     const btn = document.createElement("button")
-    btn.innerHTML = "X"
+    btn.innerHTML = '<i class="fa-solid fa-x"></i>'
     btn.addEventListener('click', (el) => {
+        console.log(el.target.parentNode)
         el.target.parentNode.remove()
 
         itens.splice(itens.findIndex(elemento => elemento.id == nameTarefa.id), 1)
