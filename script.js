@@ -41,21 +41,115 @@ function criarElemento(nameTarefa) {
     const text = document.createElement('span')
     text.innerHTML = nameTarefa.name;
 
-    const btn = document.createElement("button")
-    btn.innerHTML = '<i class="fa-solid fa-x"></i>'
-    btn.addEventListener('click', (el) => {
-        console.log(el.target.parentNode)
-        el.target.parentNode.remove()
+    // const btn = document.createElement("button")
+    // btn.innerHTML = '<i class="fa-solid fa-x"></i>'
 
-        itens.splice(itens.findIndex(elemento => elemento.id == nameTarefa.id), 1)
+    const buttons = {}
+    buttons.excluir = "excluir"
+    buttons.urgente = "urgente"
+    buttons.checked = "checked"
+
+    const div = document.createElement("div")
+    div.classList.add('interation')
+
+    const btnMenu = document.createElement("i")
+    btnMenu.classList.add('fa-solid')
+    btnMenu.classList.add('fa-ellipsis')
+    menu(btnMenu)
+
+    const btnExit = document.createElement('i')
+    btnExit.classList.add('fa-solid')
+    btnExit.classList.add('fa-x')
+    btnExit.classList.add('exit')
+
+
+    const listabotao = document.createElement("ul")
+    listabotao.classList.add('lista-buttons')
+
+    const item1 = document.createElement("li")
+    const item2 = document.createElement("li")
+    const item3 = document.createElement("li")
+    item1.classList.add('btn-item')
+    item2.classList.add('btn-item')
+    item3.classList.add('btn-item')
+
+    item1.innerHTML = '<i class="fa-solid fa-trash-can icon-btn"></i>' + buttons.excluir
+    item2.innerHTML = '<i class="fa-solid fa-skull-crossbones icon-btn"></i>' + buttons.urgente
+    item3.innerHTML = '<i class="fa-solid fa-check icon-btn"></i>' + buttons.checked
+
+    listabotao.appendChild(btnExit)
+    listabotao.appendChild(item1)
+    listabotao.appendChild(item2)
+    listabotao.appendChild(item3)
+
+    div.appendChild(btnMenu)
+    div.appendChild(listabotao)
+
+
+    // ponha todos esses estilos como objetos para pôr no local storage
+    item1.addEventListener('click', (el) => {
+        el.target.parentNode.parentNode.parentNode.remove()
+        itens.splice(itens.findIndex(el => el.id === nameTarefa.id))
         localStorage.setItem("itens", JSON.stringify(itens))
     })
 
+    item2.addEventListener('click', (el) => {
+        const estilo = el.target.parentNode.parentNode.parentNode.style
+        if (estilo.background == 'red') {
+            estilo.background = '#f5f5f5'
+            estilo.color = 'black'
+            estilo.textShadow = 'none'
+        } else {
+            estilo.background = 'red'
+            estilo.color = 'gold'
+            estilo.textShadow = '1px 1px black'
+        }
+    })
+
+    item3.addEventListener('click', (el) => {
+        const estilo = el.target.parentNode.parentNode.parentNode.style
+        if (estilo.background == 'darkgreen') {
+            estilo.background = '#f5f5f5'
+            estilo.color = 'black'
+            estilo.textShadow = 'none'
+        } else {
+            estilo.background = 'darkgreen'
+            estilo.color = 'white'
+            estilo.textShadow = '-1px 1px black'
+        }
+    })
+
+    btnExit.addEventListener('click', (el) => {
+        el.target.parentNode.classList.toggle('active')
+    })
 
     newItem.appendChild(numeracao)
     newItem.appendChild(text)
-    newItem.appendChild(btn)
+    newItem.appendChild(div)
 
     const lista = document.querySelector('.lista-tarefas')
     lista.appendChild(newItem)
 }
+
+
+function menu(btn) {
+    btn.addEventListener('click', (el) => {
+        const containerDiv = el.target.parentNode
+        const buttonsList = containerDiv.querySelector('.lista-buttons')
+        const listaButtons = document.querySelectorAll('.lista-buttons')
+
+        listaButtons.forEach(lista => {
+            if (lista == buttonsList) return;
+            lista.classList.remove('active')
+        })
+
+        buttonsList.classList.toggle('active')
+    })
+}
+
+// function exit(btn) {
+//     btn.addEventListener('click', () => {
+//         const containerDiv = el.target.parentNode
+//         console.log(containerDiv)
+//     })
+// }
